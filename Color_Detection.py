@@ -11,11 +11,11 @@ def _in_Color_Detection():
         
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         
-        #Set to red/orange/yellow? - Cone - hsl
-        lower_Cone_values1 = np.array([0, 100, 100])
-        upper_Cone_values1 = np.array([70, 255, 255])
+        #Set to red - Cone - hsv
+        lower_Cone_values1 = np.array([150, 100, 100])
+        upper_Cone_values1 = np.array([255, 255, 255])
 
-        #Set to green/light blue - Cube - hsl
+        #Set to green/light blue - Cube - hsv
         lower_Cube_values = np.array([70, 100, 100])
         upper_Cube_values = np.array([150, 255, 255])
         
@@ -35,19 +35,20 @@ def _in_Color_Detection():
             #Calculate area and remove unnecessary 
             area = cv2.contourArea(cnt)
             
-            if area < 100:
+            #Draws a rectangle where frame detects color if the are of the color is less than 100
+            #if area < 100:
                 #cv2.drawContours(frame,[cnt], -1, (0, 0, 255), 2)
-                x, y, w, h = cv2.boundingRect(cnt)
-                cv2.rectangle(cone_res, (x, y), (x +w, y + h), (0, 0, 255), 3)
+                #x, y, w, h = cv2.boundingRect(cnt)
+                #cv2.rectangle(cone_res, (x, y), (x +w, y + h), (0, 0, 255), 3)
         
         for cnt1 in contours1:
 
             area1 = cv2.contourArea(cnt1)
             
-            if area1 < 100:
-                #cv2.drawContours(,[cnt1], -1, (0, 0, 255), 2)
-                x, y, w, h = cv2.boundingRect(cnt1)
-                cv2.rectangle(cube_mask, (x, y), (x +w, y + h), (0, 0, 255), 3)
+            #if area1 < 100:
+                #cv2.drawContours(frame,[cnt1], -1, (0, 0, 255), 2)
+                #x, y, w, h = cv2.boundingRect(cnt1)
+                #cv2.rectangle(cube_mask, (x, y), (x +w, y + h), (0, 0, 255), 3)
         
         cv2.imshow('Frame', frame)
         #cv2.imshow('Cone Mask', cone_mask)
